@@ -85,6 +85,7 @@ Downs:
 </i>
 
 Both images and mask are saved as image data. The image under show mask overlayed on the original image.
+
 ![Show_batch on mast](assets\show_batch_on_mast.png)
 ![Show_batch on linje](assets\show_batch_on_linje.png)
 
@@ -114,7 +115,7 @@ A ``RandomSplitter`` was used to split the training and validation data. Custom 
 
 Because the model uses a backbone, resnet, which is trained on ImageNet data the data is normalized using ``Normalize.from_stats(*imagenet_stats, cuda=True)``. (without ``cuda=True`` i had issues with gpu and pytorch)
 
-All models where trained for various ammounts of epochs. The power-line model performed generally better the longer it was trained for. The mast model also performed well when trained for 100 epochs, however the validation loss would hit 0.13 ± 0.02. While the training loss lowered. This could be a sign of overfitting. Training beyond 100 epochs would not give any performance gain.
+All models where trained for various ammounts of epochs. The power-line model performed generally when trained when trained with resnet18 for around 50 epochs, and with resnet34 for around 100 epochs. The mast model also performed well when trained for 100 epochs, however the validation loss would hit 0.13 ± 0.02. While the training loss lowered. This could be a sign of overfitting. Training beyond 100 epochs would not give any performance gain on either model.
 
 Resnet18 and Resnet34 were used for training, but due to memory issues with the GPU any resnet achitectures with more layers would create memory issues. 
 > My GPU has 18GB of memory and the training was using all of it, and partitioning the disk for more. This increased training times to too long
@@ -123,11 +124,29 @@ Resnet18 and Resnet34 were used for training, but due to memory issues with the 
 
 These models are only a proof of concept and overall could not be used in a production system. Top-cover and transformer models are not able to accurately mark their targets. 
 
-The mast model is the best performer overall. Allthough it is most accurate on wooden masts. 
+The mast model is the best performer overall. Allthough it is most accurate on wooden masts. With promising results in using a resnet34 backbone.
 
 The power-line models performed decent and was able mark some of their target, however it think that branches or other natural lines in the background was powerlines.
 
-I will say I belive I failed my goals. I complete an ensemble
+When tested on this image (this was in the validation set)
+![Picture used in prediction](assets/linje_prediction.jpg)
+
+The model produced this mask.
+
+![Picture used in prediction](assets/linje_pred_mask.png)
+
+### **Some test results**
+This image shows some results after training for 50 epochs using resnet18
+
+![Power-line model after 50 epochs using resnet18](assets\linje_after_50_epoch_resnet_18.png)
+
+This image shows some results after training for 100 epochs using resnet34
+
+![Power-line model after 100 epochs using resnet34](assets\linje_after_100_epoch_resnet_34.png)
+
+This image show some results after training for 100 epochs using resnet34 on masts
+
+![Power-line model after 100 epochs using resnet34](assets\mast_after_100_epoch_resnet34.png)
 
 ## **Discussion**
 
