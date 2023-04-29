@@ -1,0 +1,16 @@
+# OS X stuff
+*.DS_Store
+
+# .vscode
+.vscode
+/.vscode
+
+# Python/notebook stuff
+.ipynb_checkpoints/
+*.log
+.python-version
+.venv
+
+# Trained models
+
+notebooks/models
