@@ -12,5 +12,8 @@
 .venv
 
 # Trained models
-
 notebooks/models
+
+# GIT
+
+.git
